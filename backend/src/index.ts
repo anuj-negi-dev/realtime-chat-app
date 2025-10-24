@@ -2,11 +2,15 @@ import "dotenv/config";
 import express, { Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import passport from "passport";
 import { asyncHandler } from "./middlewares/asyncHandler.middleware";
 import { HttpStatus } from "./config/http.config";
 import { Env } from "./config/env.config";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import { connectToDB } from "./config/db.config";
+
+import "./config/passport.config";
+import router from "./routes";
 
 const app = express();
 
@@ -19,6 +23,8 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+
 app.get(
   "/health",
   asyncHandler(async (req: Request, res: Response) => {
@@ -28,6 +34,8 @@ app.get(
     });
   })
 );
+
+app.use("/api", router);
 
 app.use(errorHandler);
 
