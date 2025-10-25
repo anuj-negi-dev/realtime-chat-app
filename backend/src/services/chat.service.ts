@@ -1,4 +1,5 @@
 import { ChatModel } from "../models/chat.model";
+import { MessageModel } from "../models/message.model";
 import { UserModel } from "../models/user.model";
 import { NotFoundError } from "../utils/app-error";
 import { createChatType } from "../validators/chat.validator";
@@ -54,4 +55,31 @@ export const getUsersChatsService = async (userId: string) => {
       },
     })
     .sort({ updatedAt: -1 });
+};
+
+export const getSingleChatService = async (userId: string, chatId: string) => {
+  const chat = await ChatModel.findOne({
+    _id: chatId,
+    participants: {
+      $in: [userId],
+    },
+  });
+  if (!chat) {
+    throw new NotFoundError("chat not found");
+  }
+  const messages = await MessageModel.find({ chatId })
+    .populate("sender", "name avatar")
+    .populate({
+      path: "replyTo",
+      select: "content image sender",
+      populate: {
+        path: "sender",
+        select: "name avatar",
+      },
+    })
+    .sort({ createdAt: 1 });
+  return {
+    chat,
+    messages,
+  };
 };

@@ -7,4 +7,8 @@ export const createChatSchema = z.object({
   groupName: z.string().trim().min(1).optional(),
 });
 
+export const chatIdSchema = z.object({
+  chatId: z.string().trim().min(1),
+});
+
 export type createChatType = z.infer<typeof createChatSchema>;

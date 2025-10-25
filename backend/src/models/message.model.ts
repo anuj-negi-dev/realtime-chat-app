@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 export interface MessageDocument extends Document {
-  chatID: mongoose.Types.ObjectId;
+  chatId: mongoose.Types.ObjectId;
   sender: mongoose.Types.ObjectId;
   content?: string;
   image?: string;
@@ -13,7 +13,7 @@ export interface MessageDocument extends Document {
 
 const messageSchema = new Schema<MessageDocument>(
   {
-    chatID: {
+    chatId: {
       type: Schema.Types.ObjectId,
       ref: "Chat",
       required: true,
@@ -40,7 +40,7 @@ const messageSchema = new Schema<MessageDocument>(
   }
 );
 
-export const chatModel = mongoose.model<MessageDocument>(
+export const MessageModel = mongoose.model<MessageDocument>(
   "Message",
   messageSchema
 );

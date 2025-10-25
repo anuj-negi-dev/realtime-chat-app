@@ -24,6 +24,10 @@ const chatSchema = new Schema<ChatDocument>(
       ref: "Message",
       default: null,
     },
+    groupName: {
+      type: String,
+      default: null,
+    },
     isGroup: {
       type: Boolean,
       default: false,
@@ -39,4 +43,4 @@ const chatSchema = new Schema<ChatDocument>(
   }
 );
 
-export const chatModel = mongoose.model<ChatDocument>("Chat", chatSchema);
+export const ChatModel = mongoose.model<ChatDocument>("Chat", chatSchema);
