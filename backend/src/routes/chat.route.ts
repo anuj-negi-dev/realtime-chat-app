@@ -5,6 +5,7 @@ import {
   getUserChats,
 } from "../controllers/chat.controller";
 import { passportAuthenticateJwt } from "../config/passport.config";
+import { sendMessage } from "../controllers/message.controller";
 
 const chatRouter = Router();
 
@@ -17,5 +18,7 @@ chatRouter.get(
   passportAuthenticateJwt,
   getSingleChat
 );
+
+chatRouter.post("/message/send", passportAuthenticateJwt, sendMessage);
 
 export default chatRouter;
