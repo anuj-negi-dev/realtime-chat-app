@@ -2,6 +2,7 @@ import { ChatModel } from "../models/chat.model";
 import { MessageModel } from "../models/message.model";
 import { MessageSchemaType } from "../validators/message.validator";
 import { NotFoundError } from "../utils/app-error";
+import cloudinary from "../config/couldinary.config";
 
 export const sendMessageService = async (
   userId: string,
@@ -23,6 +24,8 @@ export const sendMessageService = async (
   }
   let imageUrl = null;
   if (image) {
+    const uploadedImage = await cloudinary.uploader.upload(image);
+    imageUrl = uploadedImage.secure_url;
   }
 
   const newMessage = await MessageModel.create({

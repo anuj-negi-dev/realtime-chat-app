@@ -7,4 +7,9 @@ export const Env = {
   JWT_EXPIRES_IN: getEnv("JWT_EXPIRES_IN"),
   Frontend_URL: getEnv("Frontend_URL"),
   MONGO_URL: getEnv("MONGO_URL"),
+
+  CLOUDINARY_CLOUD_NAME: getEnv("CLOUDINARY_CLOUD_NAME"),
+  CLOUDINARY_API_KEY: getEnv("CLOUDINARY_API_KEY"),
+  CLOUDINARY_API_SECRET: getEnv("CLOUDINARY_API_SECRET"),
+
 } as const;
