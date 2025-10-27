@@ -3,6 +3,11 @@ import { MessageModel } from "../models/message.model";
 import { MessageSchemaType } from "../validators/message.validator";
 import { NotFoundError } from "../utils/app-error";
 import cloudinary from "../config/couldinary.config";
+import { Types } from "mongoose";
+import {
+  emitNewMessageToChatRoom,
+  emitLastMessageToParticipants,
+} from "../lib/socket";
 
 export const sendMessageService = async (
   userId: string,
@@ -49,6 +54,15 @@ export const sendMessageService = async (
       },
     },
   ]);
+
+  chat.lastMessage = newMessage._id as Types.ObjectId;
+
+  emitNewMessageToChatRoom(userId, chatId, newMessage);
+
+  const allParticipantsIds = chat.participants.map((id) => id.toString());
+
+  emitLastMessageToParticipants(allParticipantsIds, chatId, newMessage);
+
   return {
     message: newMessage,
     chat,

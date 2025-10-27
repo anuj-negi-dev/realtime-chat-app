@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import passport from "passport";
+import http from "node:http";
 import { asyncHandler } from "./middlewares/asyncHandler.middleware";
 import { HttpStatus } from "./config/http.config";
 import { Env } from "./config/env.config";
@@ -11,8 +12,13 @@ import { connectToDB } from "./config/db.config";
 
 import "./config/passport.config";
 import router from "./routes";
+import { initializeSocket } from "./lib/socket";
 
 const app = express();
+
+const server = http.createServer(app);
+
+initializeSocket(server);
 
 app.use(
   express.json({
@@ -43,7 +49,7 @@ app.use("/api", router);
 
 app.use(errorHandler);
 
-app.listen(Env.PORT, async () => {
+server.listen(Env.PORT, async () => {
   await connectToDB();
   console.log(
     `server is listening on port ${Env.PORT} in ${Env.NODE_ENV} mode`
