@@ -8,6 +8,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Logo from "@/components/logo";
@@ -62,6 +63,7 @@ const SignUp = () => {
                       <FormControl>
                         <Input type="text" placeholder="John Doe" {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -73,11 +75,12 @@ const SignUp = () => {
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input
-                          type="em"
+                          type="email"
                           placeholder="john@example.com"
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 ></FormField>
@@ -94,6 +97,7 @@ const SignUp = () => {
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 ></FormField>
