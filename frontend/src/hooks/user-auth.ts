@@ -31,6 +31,7 @@ export const useAuth = create<AuthState>()(
           const { data: response } = await api.post("/auth/register", data);
           set({ user: response });
           useSocket.getState().connectSocket();
+          toast.success("User registered successfully");
         } catch (error: any) {
           console.error(error);
           toast.error(error.response.data.message);
@@ -44,6 +45,7 @@ export const useAuth = create<AuthState>()(
           const { data: response } = await api.post("/auth/login", data);
           set({ user: response });
           useSocket.getState().connectSocket();
+          toast.success("LoggedIn successfully");
         } catch (error: any) {
           console.error(error);
           toast.error(error.response.data.message);
@@ -57,6 +59,7 @@ export const useAuth = create<AuthState>()(
           const { data: response } = await api.post("/auth/logout");
           set({ user: response });
           useSocket.getState().disconnectSocket();
+          toast.success("LoggedOut successfully");
         } catch (error: any) {
           console.error(error);
           toast.error(error.response.data.message);

@@ -37,6 +37,8 @@ export const initializeSocket = (server: http.Server) => {
         userId: string;
       };
 
+      console.log("Decode token", decodedToken);
+
       if (!decodedToken) return next(new UnauthorizedError("Unauthorized"));
 
       socket.userId = decodedToken.userId;
@@ -82,7 +84,7 @@ export const initializeSocket = (server: http.Server) => {
     socket.on("disconnect", () => {
       if (onlineUsers.get(userId) === socketId) {
         if (userId) onlineUsers.delete(userId);
-        io?.emit("online:user", Array.from(onlineUsers.keys()));
+        io?.emit("online:users", Array.from(onlineUsers.keys()));
       }
     });
   });
@@ -124,6 +126,6 @@ export const emitLastMessageToParticipants = (
     lastMessage,
   };
   for (const participantId of participantIds) {
-    io.to(`user.${participantId}`).emit("chat:update", payload);
+    io.to(`user:${participantId}`).emit("chat:update", payload);
   }
 };

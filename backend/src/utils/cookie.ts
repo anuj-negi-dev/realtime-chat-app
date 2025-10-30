@@ -23,7 +23,7 @@ export const setJwtAuthCookie = ({ res, userId }: Cookie) => {
   return res.cookie("accessToken", token, {
     httpOnly: true,
     secure: Env.NODE_ENV === "production" ? true : false,
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 };

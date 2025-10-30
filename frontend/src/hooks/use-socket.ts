@@ -11,11 +11,12 @@ interface SocketState {
 export const useSocket = create<SocketState>()((set, get) => ({
   socket: null,
   onlineUsers: [],
+
   connectSocket: () => {
     const { socket } = get();
     if (socket?.connected) return;
 
-    const newSocket = io(import.meta.env.BACKEND_URL, {
+    const newSocket = io(import.meta.env.VITE_BACKEND_URL, {
       withCredentials: true,
       autoConnect: true,
     });
@@ -26,7 +27,7 @@ export const useSocket = create<SocketState>()((set, get) => ({
       console.log("socket connected", newSocket.id);
     });
 
-    newSocket.on("users:online", (userIds) => {
+    newSocket.on("online:users", (userIds) => {
       set({ onlineUsers: userIds });
     });
   },

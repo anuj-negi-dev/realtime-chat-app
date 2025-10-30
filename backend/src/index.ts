@@ -18,8 +18,6 @@ const app = express();
 
 const server = http.createServer(app);
 
-initializeSocket(server);
-
 app.use(
   express.json({
     limit: "10mb",
@@ -34,6 +32,8 @@ app.use(
 );
 
 app.use(passport.initialize());
+
+initializeSocket(server);
 
 app.get(
   "/health",
