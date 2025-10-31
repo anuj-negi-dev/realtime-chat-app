@@ -37,8 +37,6 @@ export const initializeSocket = (server: http.Server) => {
         userId: string;
       };
 
-      console.log("Decode token", decodedToken);
-
       if (!decodedToken) return next(new UnauthorizedError("Unauthorized"));
 
       socket.userId = decodedToken.userId;

@@ -1,12 +1,17 @@
+import SideBar from "./side-bar";
+
 interface Props {
   children: React.ReactNode;
 }
 
 const AppWrapper = ({ children }: Props) => {
   return (
-    <div className="h-full">
-      <main>{children}</main>
-    </div>
+    <>
+      <div className="h-full">
+        <SideBar />
+        <main className="lg:pl-10 h-full">{children}</main>
+      </div>
+    </>
   );
 };
 

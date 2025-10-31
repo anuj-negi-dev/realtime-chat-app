@@ -34,3 +34,7 @@ export const protectedRoutesPaths = [
     element: <SingleChat />,
   },
 ];
+
+export const isAuthRoute = (pathname: string) => {
+  return Object.values(protectedRoutes).includes(pathname);
+};
